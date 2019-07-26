@@ -9,7 +9,7 @@ namespace ECommerce.Domain
         public int Id { get; set; }
         public Cliente Cliente { get; set; }
         public PedidoItens PedidoItens { get; set; }
-        public TipoPagamento tipoPagamento { get; set; }
+        public TipoPagamento TipoPagamento { get; set; }
         public bool PedidoEstaAprovado { get; set; }
         public decimal ValorTotal { get; set; }
 
