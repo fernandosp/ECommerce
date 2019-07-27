@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace ECommerce.Data
 {
@@ -17,9 +18,9 @@ namespace ECommerce.Data
 
         public List<TEntity> Entities { get; set; }
 
-        public virtual void Add(TEntity obj)
+        public virtual TEntity Add(TEntity obj)
         {
-            Entities.Add(obj);
+            return _connection.Query<TEntity>("", obj).Single();
         }
 
         public List<TEntity> GetAll()

@@ -5,6 +5,6 @@ namespace ECommerce.Data
     public interface IClientRepository : IRepository<Client>
     {
         Client GetByEmail(string email);
-        Client GetByCPF(string email);
+        Client GetByCPF(string cpf);
     }
 }

@@ -12,9 +12,9 @@ namespace ECommerce.Data
             return _connection.Query<Client>($@"Select * from Client where CPF like '%{cpf}%' ").Single();
         }
 
-        public void Add(ClientRepository obj)
+        public Client Add(ClientRepository obj)
         {
-            _connection.Execute("Insert Into Client (Name, Email, CPF) Values(@name, @email, @cpf)", obj);
+            return _connection.Query<Client>("Insert Into Client (Name, Email, CPF) Values(@name, @email, @cpf)", obj).Single();
         }
 
         public Client GetByEmail(string email)

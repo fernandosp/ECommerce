@@ -1,4 +1,7 @@
-﻿namespace ECommerce.Domain
+﻿
+using DomainValidation.Validation;
+
+namespace ECommerce.Domain
 {
    public class Client : Entity
     {
@@ -9,5 +12,7 @@
         public string Email { get; set; }
 
         public string CPF { get; set; }
+
+       
     }
 }
