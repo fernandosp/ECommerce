@@ -1,4 +1,6 @@
-﻿namespace ECommerce.Domain
+﻿using System;
+
+namespace ECommerce.Domain
 {
     public class Order : Entity
     {
@@ -7,5 +9,6 @@
         public PaymentType PaymentType { get; set; }
         public bool IsOrderAproved { get; set; }
         public decimal Total { get; set; }
+        public DateTime DateOrder { get; set; }
     }
 }
