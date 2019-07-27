@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using ECommerce.Domain;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace ECommerce.Data
 {
     public class ProductRepository : Repository<Product>, IProductRepository
     {
+        public ProductRepository(IConfiguration config) : base(config)
+        {
+
+        }
         public void Add(Product obj)
         {
             _connection.Execute("Insert Into Product (Name, Value, Quantity, ProductType) Values(@name, @value, @quantity, @productType)", obj);
