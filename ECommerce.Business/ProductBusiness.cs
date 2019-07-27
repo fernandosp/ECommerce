@@ -8,7 +8,7 @@ namespace ECommerce.Business
 {
     public class ProductBusiness : IProductBusiness
     {
-        IProductRepository _iProductRepository;
+        private readonly IProductRepository _iProductRepository;
         public ProductBusiness(IProductRepository iProductRepository)
         {
             _iProductRepository = iProductRepository;
