@@ -6,7 +6,9 @@ namespace ECommerce.Domain
 {
     public class OrderItens : Entity
     {
-        List<Product> Products { get; set; }
+        public Product Products { get; set; }
+        public int Quantity { get; set; }
+
     }
 
 }
