@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,9 +10,11 @@ namespace ECommerce.Data
     {
         protected readonly SqlConnection _connection;
         protected readonly string _query;
-        public Repository()
+        private readonly IConfiguration _config;
+
+        public Repository(IConfiguration config)
         {
-            _connection = ConnectionFactory.GetConnection();
+            _connection = ConnectionFactory.GetConnection(_config.GetConnectionString("DefaultConnection"));
             _query = $@"Select * from {typeof(TEntity).Name}";
         }
 
