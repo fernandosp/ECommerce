@@ -26,12 +26,12 @@ namespace ECommerce.Data
             return _connection.Query<TEntity>("", obj).Single();
         }
 
-        public List<TEntity> GetAll()
+        public virtual List<TEntity> GetAll()
         {
             return _connection.Query<TEntity>(_query).AsList();
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             throw new NotImplementedException();
         }

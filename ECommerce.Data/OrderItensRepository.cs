@@ -14,14 +14,24 @@ namespace ECommerce.Data
         {
 
         }
-        public void Add(OrderItens obj)
+        public override OrderItens Add(OrderItens obj)
         {
-            _connection.Execute("Insert Into OrderItens (product, quantity) Values(@product, @quantity)", obj);
+           return _connection.Query<OrderItens>("Insert Into OrderItens (product, quantity) Values(@product, @quantity)", obj).Single();
         }
 
-        public List<OrderItens> GetAll()
+        public override List<OrderItens> GetAll()
         {
-            return _connection.Query<OrderItens>($@"Select * from Order").ToList();
+            string sql = "SELECT * FROM OrderItens AS OI INNER JOIN Product AS P ON OI.Id_Product = P.ID;";
+
+            var orderItens = _connection.Query<OrderItens, Product, OrderItens>(
+                sql, (orderitens, product) =>
+                {
+                    orderitens.Products = product;
+                    return orderitens;
+                },
+                splitOn: "Id_Product").Distinct().ToList();
+
+            return orderItens;
         }
     }
 }
