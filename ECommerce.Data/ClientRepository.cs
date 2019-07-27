@@ -18,7 +18,7 @@ namespace ECommerce.Data
             return _connection.Query<Client>($@"Select * from Client where CPF like '%{cpf}%' ").Single();
         }
 
-        public Client Add(ClientRepository obj)
+        public override Client Add(Client obj)
         {
             return _connection.Query<Client>("Insert Into Client (Name, Email, CPF) Values(@name, @email, @cpf)", obj).Single();
         }

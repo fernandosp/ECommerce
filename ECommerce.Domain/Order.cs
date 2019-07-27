@@ -10,7 +10,7 @@ namespace ECommerce.Domain
         public Client Client { get; set; }
         public List<OrderItens> OrderItens { get; set; }
         public PaymentType PaymentType { get; set; }
-        public bool IsOrderAproved { get; set; }
+        public OrderStatus OrderStatus { get; set; }
         public decimal Total { get; set; }
         public DateTime DateOrder { get; set; }
     }
