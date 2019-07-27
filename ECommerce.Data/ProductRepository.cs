@@ -14,10 +14,12 @@ namespace ECommerce.Data
         {
 
         }
-        public void Add(Product obj)
+
+        public override Product Add(Product obj)
         {
-            _connection.Execute("Insert Into Product (Name, Value, Quantity, ProductType) Values(@name, @value, @quantity, @productType)", obj);
+            return _connection.Query<Product>("Insert Into Product (Name, Value, Quantity, ProductType) Values(@name, @value, @quantity, '" + obj.ProductType + "')", obj).Single();
         }
+
         public List<Product> GetAll()
         {
             return _connection.Query<Product>($@"Select * from Product").ToList();

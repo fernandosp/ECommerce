@@ -7,5 +7,6 @@ namespace ECommerce.Data
 {
     public interface IOrderItensRepository : IRepository<OrderItens>
     {
+        OrderItens Add(OrderItens obj, int IdOrder);
     }
 }
