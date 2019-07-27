@@ -9,7 +9,7 @@ namespace ECommerce.Data
     {
         public List<ClientRepository> GetByCPF(string cpf)
         {
-            return _connection.Query<ClientRepository>($@"Select * from Client where brand like '%{cpf}%' ").ToList();
+            return _connection.Query<ClientRepository>($@"Select * from Client where CPF like '%{cpf}%' ").ToList();
         }
 
         public void Add(ClientRepository obj)
