@@ -1,4 +1,8 @@
-﻿namespace ECommerce.Domain
+﻿
+/// <summary>
+/// Collecting a list of product by using required parameters listed in
+/// </summary>
+namespace ECommerce.Domain
 {
     public class Product :Entity
     {

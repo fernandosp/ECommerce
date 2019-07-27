@@ -1,4 +1,8 @@
-﻿namespace ECommerce.Domain
+﻿
+/// <summary>
+/// Customer has to choice a type of payment
+/// </summary>
+namespace ECommerce.Domain
 {
     public enum PaymentType
     {
