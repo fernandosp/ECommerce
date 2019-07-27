@@ -37,6 +37,7 @@ namespace ECommerce.API
         {
             var conn = this.Configuration.GetConnectionString("DefaultConnection");
 
+            var clientRepository = new ClientRepository(Configuration);
             services.AddSingleton<IClientRepository, ClientRepository>();   
         }
 
