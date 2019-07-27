@@ -14,13 +14,14 @@ namespace ECommerce.Data
         {
 
         }
-        public void Add(OrderItens obj)
-        {
-            _connection.Execute("Insert Into OrderItens (product, quantity) Values(@product, @quantity)", obj);
-        }
+        
         public List<OrderItens> GetAll()
         {
             return _connection.Query<OrderItens>($@"Select * from Order").ToList();
+        }
+        public OrderItens Add(OrderItens obj, int IdOrder)
+        {
+            return _connection.Query<OrderItens>("Insert Into OrderItens (Id_Order, Id_Product, Quantity) Values('" + IdOrder + "', '" + obj.Products.Id + "', @Quantity)", obj).Single();
         }
     }
 }
