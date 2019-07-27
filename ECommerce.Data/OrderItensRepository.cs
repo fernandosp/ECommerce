@@ -9,13 +9,13 @@ namespace ECommerce.Data
 {
     public class OrderItensRepository : Repository<OrderItens>, IOrderItensRepository
     {
-        public void Add(OrderItensRepository obj)
+        public void Add(OrderItens obj)
         {
             _connection.Execute("Insert Into OrderItens (product, quantity) Values(@product, @quantity)", obj);
         }
-        public List<OrderItensRepository> GetAll()
+        public List<OrderItens> GetAll()
         {
-            return _connection.Query<OrderItensRepository>($@"Select * from Order").ToList();
+            return _connection.Query<OrderItens>($@"Select * from Order").ToList();
         }
     }
 }

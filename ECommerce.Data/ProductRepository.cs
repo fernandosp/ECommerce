@@ -9,13 +9,13 @@ namespace ECommerce.Data
 {
     public class ProductRepository : Repository<Product>, IProductRepository
     {
-        public void Add(ProductRepository obj)
+        public void Add(Product obj)
         {
             _connection.Execute("Insert Into Product (Name, Value, Quantity, ProductType) Values(@name, @value, @quantity, @productType)", obj);
         }
-        public List<ProductRepository> GetAll()
+        public List<Product> GetAll()
         {
-            return _connection.Query<ProductRepository>($@"Select * from Product").ToList();
+            return _connection.Query<Product>($@"Select * from Product").ToList();
         }
 
     }
