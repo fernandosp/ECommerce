@@ -6,18 +6,16 @@ using System.Text;
 
 namespace ECommerce.Data
 {
-    class Client : Repository<Client>, IClientRepository
+    public class Client : Repository<Client>, IClientRepository
     {
-        public List<Client> GetByBrand(string brand)
+        public List<Client> GetByBrand(string name)
         {
-            return _connection.Query<Client>($@"Select * from Car where brand like '%{brand}%' ").ToList();
+            return _connection.Query<Client>($@"Select * from Client where brand like '%{name}%' ").ToList();
         }
 
         public override void Add(Client obj)
         {
-            _connection.Execute("Insert Into CAR (YEAR, BRAND, MODEL) Values(@year, @brand, @model)", obj);
+            _connection.Execute("Insert Into Client (Name, Email, CPF) Values(@name, @email, @cpf)", obj);
         }
-    }
-    {
     }
 }
