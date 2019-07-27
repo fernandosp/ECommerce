@@ -1,5 +1,7 @@
 ﻿namespace ECommerce.Domain
-{
+{   /// <summary>
+/// Getting all information to start the creating of Purchasing Order which afterwards to submit to the Client
+/// </summary>
     public class Order : Entity
     {
         public Client Client { get; set; }
