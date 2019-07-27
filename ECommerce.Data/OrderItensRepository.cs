@@ -13,6 +13,7 @@ namespace ECommerce.Data
         {
             _connection.Execute("Insert Into OrderItens (product, quantity) Values(@product, @quantity)", obj);
         }
+
         public List<OrderItens> GetAll()
         {
             return _connection.Query<OrderItens>($@"Select * from Order").ToList();

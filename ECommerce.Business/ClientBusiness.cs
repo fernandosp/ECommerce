@@ -2,9 +2,7 @@
 using ECommerce.Business.Validations;
 using ECommerce.Data;
 using ECommerce.Domain;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ECommerce.Business
 {
@@ -43,11 +41,6 @@ namespace ECommerce.Business
         public Client GetByCPF(string cpf)
         {
             return _iClientRepository.GetByCPF(cpf);
-        }
-
-        public void Validar(Client client)
-        {
-            throw new NotImplementedException();
         }
     }
 }
