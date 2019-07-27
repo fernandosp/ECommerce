@@ -9,6 +9,7 @@ namespace ECommerce.Domain
         public PaymentType PaymentType { get; set; }
         public bool IsOrderAproved { get; set; }
         public decimal Total { get; set; }
+
         public DateTime DateOrder { get; set; }
     }
 }
