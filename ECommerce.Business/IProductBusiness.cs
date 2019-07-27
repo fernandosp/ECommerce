@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ECommerce.Data
+namespace ECommerce.Business
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductBusiness
     {
+        Product Add(Product product);
         Product GetByName(string name);
+        List<Product> GetAll();
+
     }
 }

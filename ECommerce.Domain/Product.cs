@@ -4,7 +4,7 @@
 /// </summary>
 namespace ECommerce.Domain
 {
-    public class Product :Entity
+    public class Product : Entity
     {
         public string Name { get; set; }
         public ProductType ProductType { get; set; }

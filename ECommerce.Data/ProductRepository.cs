@@ -23,5 +23,10 @@ namespace ECommerce.Data
             return _connection.Query<Product>($@"Select * from Product").ToList();
         }
 
+        public Client GetByName(string nome)
+        {
+            return _connection.Query<Client>($@"Select * from Product where nome like '%{nome}%' ").Single();
+        }
+
     }
 }
