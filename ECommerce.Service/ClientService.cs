@@ -21,12 +21,17 @@ namespace ECommerce.Service
 
         public List<Client> GetAll()
         {
-            throw new NotImplementedException();
+          return _business.GetAll();
         }
 
-        public Client GetByCPF()
+        public Client GetByCPF(string cpf)
         {
-            throw new NotImplementedException();
+            return _business.GetByCPF(cpf);
+        }
+
+        public Client GetByEmail(string email)
+        {
+            return _business.GetByEmail(email);
         }
     }
 }

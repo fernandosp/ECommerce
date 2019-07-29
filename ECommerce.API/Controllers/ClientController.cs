@@ -26,6 +26,18 @@ namespace ECommerce.API.Controllers
             return _ClientService.GetAll();
         }
 
+        [HttpGet]
+        public ActionResult<Client> GetByCpf(string cpf)
+        {
+            return _ClientService.GetByCPF(cpf);
+        }
+
+        [HttpGet]
+        public ActionResult<Client> GetByEmail(string email)
+        {
+            return _ClientService.GetByEmail(email);
+        }
+
         [HttpPost]
         public ActionResult Post([FromBody]Client Client)
         {

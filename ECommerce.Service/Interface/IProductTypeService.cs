@@ -7,5 +7,6 @@ namespace ECommerce.Service.Interface
 {
     public interface IProductTypeService : IServiceBase<ProductType>
     {
+        ProductType GetByName(string name);
     }
 }

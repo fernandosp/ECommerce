@@ -9,5 +9,6 @@ namespace ECommerce.Business
     {
         ProductType Add(ProductType productType);
         List<ProductType> GetAll();
+        ProductType GetByName(string name);
     }
 }

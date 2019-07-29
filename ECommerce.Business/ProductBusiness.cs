@@ -14,7 +14,7 @@ namespace ECommerce.Business
 
         public Product Add(Product product)
         {
-           return _iProductRepository.Add(product);
+            return _iProductRepository.Add(product);
         }
 
         public List<Product> GetAll()

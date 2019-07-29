@@ -19,5 +19,10 @@ namespace ECommerce.Business
         {
            return _iProductTypeBusiness.GetAll();
         }
+
+        public ProductType GetByName(string name)
+        {
+            return _iProductTypeBusiness.GetByName(name);
+        }
     }
 }

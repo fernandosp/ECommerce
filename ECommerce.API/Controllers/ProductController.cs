@@ -26,6 +26,12 @@ namespace ECommerce.API.Controllers
             return _productService.GetAll();
         }
 
+        [HttpGet]
+        public ActionResult<Product> Get(string name)
+        {
+            return _productService.GetByName(name);
+        }
+
         [HttpPost]
         public ActionResult Post([FromBody]Product product)
         {

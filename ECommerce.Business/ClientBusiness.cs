@@ -42,5 +42,9 @@ namespace ECommerce.Business
         {
             return _iClientRepository.GetByCPF(cpf);
         }
+        public Client GetByEmail(string email)
+        {
+            return _iClientRepository.GetByEmail(email);
+        }
     }
 }

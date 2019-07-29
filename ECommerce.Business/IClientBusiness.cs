@@ -8,5 +8,6 @@ namespace ECommerce.Business
         Client Add(Client client);
         Client GetByCPF(string cpf);
         List<Client> GetAll();
+        Client GetByEmail(string email);
     }
 }
