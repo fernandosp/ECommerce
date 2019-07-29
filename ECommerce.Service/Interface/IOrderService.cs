@@ -7,8 +7,7 @@ namespace ECommerce.Service
     public interface IOrderService
     {
         List<Order> GetOrdersAproved();
-        List<Order> GetOrdersNoAproved();
+        List<Order> GetOrdersNotAproved();
         Order SendOrder();
-
     }
 }
