@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ECommerce.Data;
+﻿using ECommerce.Data;
 using ECommerce.Domain;
+using System.Collections.Generic;
 
 namespace ECommerce.Business
 {
