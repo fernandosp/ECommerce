@@ -6,7 +6,7 @@ using ECommerce.Domain;
 
 namespace ECommerce.Service
 {
-    class ProductService : IProductService
+    public class ProductService : IProductService
     {
         private readonly IProductBusiness _productBusiness;
         public ProductService(IProductBusiness productBusiness)
