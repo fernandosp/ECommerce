@@ -15,7 +15,7 @@ namespace ECommerce.Data
 
         public Repository(IConfiguration config)
         {
-            _connection = ConnectionFactory.GetConnection(_config.GetConnectionString("DefaultConnection"));
+            _connection = ConnectionFactory.GetConnection(config.GetConnectionString("DefaultConnection"));
             _query = $@"Select * from {typeof(TEntity).Name}";
         }
 
