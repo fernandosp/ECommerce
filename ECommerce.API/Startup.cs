@@ -14,6 +14,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ECommerce.API
 {
@@ -21,27 +25,12 @@ namespace ECommerce.API
     {
         public Startup(IConfiguration configuration)
         {
-            
-
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            DependencyInjection(services);
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-        }
-
-        public void DependencyInjection(IServiceCollection services)
-        {
-            //var conn = this.Configuration.GetConnectionString("DefaultConnection");
-
-            //var clientRepository = new ClientRepository(Configuration);
-
+      public void DependencyInjection(IServiceCollection services) {
             #region repository
             services.AddSingleton<IClientRepository, ClientRepository>();
             services.AddSingleton<IOrderItensRepository, OrderItensRepository>();
@@ -65,21 +54,51 @@ namespace ECommerce.API
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<IProductTypeService, ProductTypeService>();
             #endregion business
-
-
-
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
+        public void ConfigureServices(IServiceCollection services) {
+            DependencyInjection(services);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1",
+                    new Info {
+                        Title = "ECommerce",
+                        Version = "v1",
+                        Description = "...",
+                        Contact = new Contact {
+                            Name = "name - name",
+                            Url = "https://github.com/fernandosp/ECommerce"
+                        }
+                    });
+
+                var caminhoAplicacao =
+                    PlatformServices.Default.Application.ApplicationBasePath;
+                var nomeAplicacao =
+                    PlatformServices.Default.Application.ApplicationName;
+                var caminhoXmlDoc =
+                    Path.Combine(caminhoAplicacao, $"{nomeAplicacao}.xml");
+
+                c.IncludeXmlComments(caminhoXmlDoc);
+            });
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
+            }
+            else {
+                app.UseHsts();
             }
 
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "ECommerce");
+            });
         }
     }
 }

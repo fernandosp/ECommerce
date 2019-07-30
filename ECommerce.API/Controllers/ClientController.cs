@@ -9,53 +9,43 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
-    {
+    public class ClientController : ControllerBase {
 
         private readonly IClientService _ClientService;
-        public ClientController(IClientService ClientService)
-        {
+        public ClientController(IClientService ClientService) {
             _ClientService = ClientService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Client>> Get()
-        {
+        public ActionResult<IEnumerable<Client>> Get() {
             return _ClientService.GetAll();
         }
 
-        [HttpGet]
-        public ActionResult<Client> GetByCpf(string cpf)
-        {
+        [HttpGet("client/{cpf}")]
+        public ActionResult<Client> GetByCpf([FromRoute] string cpf) {
             return _ClientService.GetByCPF(cpf);
         }
 
-        [HttpGet]
-        public ActionResult<Client> GetByEmail(string email)
-        {
+        [HttpGet("client/{email}")]
+        public ActionResult<Client> GetByEmail([FromRoute] string email) {
             return _ClientService.GetByEmail(email);
         }
 
-        [HttpPost]
-        public ActionResult Post([FromBody]Client Client)
-        {
-            try
-            {
+        [HttpPost("client/{post}")]
+        public ActionResult post([FromBody]Client client) {
+            try {
 
-                if (ModelState.IsValid)
-                {
-                    _ClientService.Add(Client);
+                if (ModelState.IsValid) {
+                    _ClientService.Add(client);
                     return Ok("success");
                 }
-                else
-                {
+                else {
                     return BadRequest(ModelState);
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception) {
                 return new StatusCodeResult(500);
             }
 
