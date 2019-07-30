@@ -33,5 +33,21 @@ namespace ECommerce.Data
 
             return orderItens;
         }
+
+        public OrderItens GetByOrderIdAnProductId(int OrderId, int ProductId)
+        {
+            string sql = $"select * from OrderItens where Id_Order = {OrderId} and Id_Product = {ProductId}";
+
+            return _connection.Query<OrderItens>(sql).FirstOrDefault();
+        }
+
+        public List<OrderItens> GetOrderItensByOrderId(int OrderId)
+        {
+            string sql = $"select * from OrderItens where Id_Order = {OrderId}";
+
+            return _connection.Query<OrderItens>(sql).ToList();
+        }
+
+
     }
 }

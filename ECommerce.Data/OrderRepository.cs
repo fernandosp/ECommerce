@@ -61,5 +61,10 @@ namespace ECommerce.Data
         {
             _connection.Query<Order>($"Insert Into Orders (Id_Client, PaymentType, OrderStatus, Total, DateOrder) Values('" + obj.Client.Id + "', @PaymentType, 'ABERTA', 0, " + DateTime.Now + ")", obj);
         }
+
+        public void AlterTotal(decimal total, int IdOrder)
+        {
+            string sql = $"update Orders set total = {total} where id = {IdOrder}";
+        }
     }
 }
