@@ -54,7 +54,7 @@ namespace ECommerce.API.Controllers
                     return BadRequest(ModelState);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new StatusCodeResult(500);
             }
