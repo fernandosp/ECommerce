@@ -59,7 +59,10 @@ namespace ECommerce.Data
 
         public void Add(Order obj)
         {
-            _connection.Query<Order>($"Insert Into Orders (Id_Client, PaymentType, OrderStatus, Total, DateOrder) Values('" + obj.Client.Id + "', @PaymentType, 'ABERTA', 0, " + DateTime.Now + ")", obj);
+            string sql = $"Insert Into Orders (Id_Client, PaymentType, OrderStatus, Total, DateOrder)" +
+                $" Values(" + obj.Client_Id + ", '" + obj.PaymentType + "', 'ABERTA', 0, getdate())";
+
+            _connection.Query<Order>(sql);
         }
     }
 }
