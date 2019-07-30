@@ -23,12 +23,13 @@ namespace ECommerce.API.Controllers
             return _ClientService.GetAll();
         }
 
-        [HttpGet("client/{cpf}")]
+        [HttpGet("{cpf}")]
         public ActionResult<Client> GetByCpf([FromRoute] string cpf) {
             return _ClientService.GetByCPF(cpf);
         }
 
-        [HttpGet("client/{email}")]
+        [Route("[action]/{email}")]
+        [HttpGet]
         public ActionResult<Client> GetByEmail([FromRoute] string email) {
             return _ClientService.GetByEmail(email);
         }

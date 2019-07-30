@@ -16,7 +16,8 @@ namespace ECommerce.Data
 
         public Client GetByCPF(string cpf)
         {
-            return _connection.Query<Client>($@"Select * from Client where CPF like '%{cpf}%' ").Single();
+            var sql = $@"Select * from Client where CPF in  @CPF; ";
+            return _connection.Query<Client>(sql, new { CPF = new[] { cpf } }).FirstOrDefault();
         }
 
         public override Client Add(Client obj)
@@ -27,7 +28,8 @@ namespace ECommerce.Data
 
         public Client GetByEmail(string email)
         {
-            return _connection.Query<Client>($@"Select * from Client where EMAIL like '%{email}%' ").Single();
+            var sql = $@"Select * from Client where EMAIL in  @EMAIL; ";
+            return _connection.Query<Client>(sql, new { EMAIL = new[] { email } }).FirstOrDefault();
         }
     }
 }
