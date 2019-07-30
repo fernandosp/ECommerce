@@ -34,7 +34,7 @@ namespace ECommerce.API.Controllers
             return _ClientService.GetByEmail(email);
         }
 
-        [HttpPost("client/{post}")]
+        [HttpPost]
         public ActionResult post([FromBody]Client client) {
             try {
 
