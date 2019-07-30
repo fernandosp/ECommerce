@@ -14,9 +14,9 @@ namespace ECommerce.Service
             _orderItensBusiness = orderItensBusiness;
         }
 
-        public void Add(OrderItens orderItens)
+        public void Add(OrderItens orderItens, int orderId)
         {
-            _orderItensBusiness.Add(orderItens);
+            _orderItensBusiness.Add(orderItens, orderId);
         }
 
         public List<OrderItens> GetAll()

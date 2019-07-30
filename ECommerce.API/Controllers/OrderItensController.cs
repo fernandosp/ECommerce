@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerce.API.ViewModels;
 using ECommerce.Domain;
 using ECommerce.Service;
 using Microsoft.AspNetCore.Http;
@@ -23,13 +24,14 @@ namespace ECommerce.API.Controllers
 
 
         [HttpPost("orderitens/{post}")]
-        public ActionResult Post([FromBody] OrderItens orderItens)
+        public ActionResult Post([FromBody] PostOrderItensRequest request)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _orderItensService.Add(orderItens);
+                    OrderItens orderItens = new OrderItens(request.IdProduct, request.Quantity);
+                    _orderItensService.Add(orderItens, request.IdOrder);
                     return Ok("success");
                 }
                 else
