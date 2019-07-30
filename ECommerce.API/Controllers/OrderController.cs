@@ -14,6 +14,7 @@ namespace ECommerce.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
+
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
@@ -32,7 +33,7 @@ namespace ECommerce.API.Controllers
             return Ok(_orderService.Get());
         }
 
-        [HttpPost]
+        [HttpPost("{post}")]
         public ActionResult<string> Post([FromBody] Order order)
         {
             try
