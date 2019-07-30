@@ -11,6 +11,7 @@ namespace ECommerce.Domain
     public class Order : Entity
     {
         public Client Client { get; set; }
+        public int Client_Id { get; set; }
         public List<OrderItens> OrderItens { get; set; }
         public PaymentType PaymentType { get; set; }
         public OrderStatus OrderStatus { get; set; }

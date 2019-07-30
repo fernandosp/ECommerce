@@ -15,9 +15,9 @@ namespace ECommerce.Business
         }
 
         
-        public Order Add(Order order)
+        public void Add(Order order)
         {
-            return _orderRepository.Add(order);
+            _orderRepository.Add(order);
         }
 
         public List<Order> GetAllOrders()

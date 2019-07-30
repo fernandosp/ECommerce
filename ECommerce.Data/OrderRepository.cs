@@ -15,13 +15,54 @@ namespace ECommerce.Data
 
         }
         
-        public List<OrderRepository> GetAll()
+        public override List<Order> GetAll()
         {
-            return _connection.Query<OrderRepository>($@"Select * from Orders").ToList();
+            using (_connection)
+            {
+                return _connection.Query<Order, Client, Order>(
+                        $@"Select * from
+                        Orders O  inner join Client C 
+                        on O.Id_Client = C.Id ",
+                        map: (Order, Client) =>
+                        {
+                            Order.Client = Client;
+                            return Order;
+                        },
+                        splitOn: "Id,Id").ToList();
+
+            }
         }
-        public Order Add(Order obj)
+
+        public override Order GetById(int id)
         {
-            return _connection.Query<Order>("Insert Into Orders (Id_Client, PaymentType, OrderStatus, Total, DateOrder) Values('" + obj.Client.Id + "', @PaymentType, @OrderStatus, @Total, @DateOrder)", obj).Single();
+            //return _connection.Query<Order>($@"Select * from
+            //                                Orders O  inner join Client C 
+            //                                on O.Id_Client = C.Id where O.Id = {id}").SingleOrDefault();
+
+            using (_connection)
+            {
+                return _connection.Query<Order, Client, Order>(
+                        $@"Select * from
+                        Orders O  inner join Client C 
+                        on O.Id_Client = C.Id where O.Id = {id}",
+                        map: (Order, Client) =>
+                        {
+                            Order.Client = Client;
+                            return Order;
+                        },
+                        splitOn: "Id,Id").SingleOrDefault();
+                
+            }
+
+
+        }
+
+        public void Add(Order obj)
+        {
+            string sql = $"Insert Into Orders (Id_Client, PaymentType, OrderStatus, Total, DateOrder)" +
+                $" Values(" + obj.Client_Id + ", '" + obj.PaymentType + "', 'ABERTA', 0, getdate())";
+
+            _connection.Query<Order>(sql);
         }
     }
 }

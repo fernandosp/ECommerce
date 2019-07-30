@@ -8,6 +8,8 @@ namespace ECommerce.Service
     {
         List<Order> GetOrdersAproved();
         List<Order> GetOrdersNotAproved();
-        Order SendOrder();
+        void SendOrder(Order order);
+        Order GetById(int id);
+        List<Order> Get();
     }
 }
