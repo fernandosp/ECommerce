@@ -7,7 +7,7 @@ namespace ECommerce.Business
 {
     public interface IOrderBusiness
     {
-        Order Add(Order order);
+        void Add(Order order);
         List<Order> GetAllOrders();
         Order GetOrderById(int id);
     }

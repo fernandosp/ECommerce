@@ -13,6 +13,17 @@ namespace ECommerce.Service
         {
             _orderBusiness = orderBusiness;
         }
+
+        public List<Order> Get()
+        {
+            return _orderBusiness.GetAllOrders();
+        }
+
+        public Order GetById(int id)
+        {
+            return _orderBusiness.GetOrderById(id);
+        }
+
         public List<Order> GetOrdersAproved()
         {
             throw new NotImplementedException();
@@ -23,9 +34,9 @@ namespace ECommerce.Service
             throw new NotImplementedException();
         }
 
-        public Order SendOrder()
+        public void SendOrder(Order order)
         {
-            throw new NotImplementedException();
+            _orderBusiness.Add(order);
         }
     }
 }
