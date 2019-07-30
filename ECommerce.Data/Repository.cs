@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -28,12 +29,12 @@ namespace ECommerce.Data
 
         public virtual List<TEntity> GetAll()
         {
-            return _connection.Query<TEntity>(_query).AsList();
+            return _connection.GetAll<TEntity>().ToList();
         }
 
         public virtual TEntity GetById(int id)
         {
-            throw new NotImplementedException();
+           return _connection.Get<TEntity>(id);
         }
 
         public void Update(TEntity obj)

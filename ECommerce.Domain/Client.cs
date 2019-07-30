@@ -1,9 +1,11 @@
 ﻿
 using DomainValidation.Validation;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerce.Domain
 {
-   public class Client : Entity
+    [Table("Client")]
+    public class Client : Entity
     {
         /// <summary>
         /// Getting  all required of Buyer's information to ensure registry properly 

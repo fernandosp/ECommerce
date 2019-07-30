@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Dapper.Contrib.Extensions;
 using ECommerce.Domain;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ namespace ECommerce.Data
 
         public override Client Add(Client obj)
         {
-            return _connection.Query<Client>("Insert Into Client (Name, Email, CPF) Values(@name, @email, @cpf)", obj).Single();
+            var id = _connection.Execute("Insert Into Client (Name, Email, CPF) Values(@name, @email, @cpf) ", obj);
+            return obj;
         }
 
         public Client GetByEmail(string email)

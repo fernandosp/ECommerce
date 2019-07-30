@@ -1,9 +1,11 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
 /// <summary>
 /// Collecting a list of product by using required parameters listed in
 /// </summary>
 namespace ECommerce.Domain
 {
+    [Table("Product")]
     public class Product : Entity
     {
         public string Name { get; set; }
