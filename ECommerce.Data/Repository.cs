@@ -29,7 +29,7 @@ namespace ECommerce.Data
 
         public virtual List<TEntity> GetAll()
         {
-            return _connection.GetAll<TEntity>().ToList(); ;
+            return _connection.GetAll<TEntity>().ToList();
         }
 
         public virtual TEntity GetById(int id)
