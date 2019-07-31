@@ -33,7 +33,7 @@ namespace ECommerce.API.Controllers
             return Ok(_orderService.Get());
         }
 
-        [HttpPost("{post}")]
+        [HttpPost]
         public ActionResult<string> Post([FromBody] Order order)
         {
             try

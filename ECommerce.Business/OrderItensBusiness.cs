@@ -51,21 +51,22 @@ namespace ECommerce.Business
 
             orderItensDB = _IOrderItensRepository.GetByOrderIdAnProductId(id_order, orderItens.Id);
 
-            if(orderItensDB == null) {
+            if(orderItensDB == null)
+            {
                 _IOrderItensRepository.Add(orderItens);
-
-                decimal totalvalue = orderItens.Quantity * product.Value + order.Total;
-
-
+            }
+            else
+            {
+                _IOrderItensRepository.AlterQuantity(orderItens.Quantity + orderItensDB.Quantity, orderItensDB.Id); ;
             }
 
+            decimal totalvalue = orderItens.Quantity * product.Value + order.Total;
 
+            _orderRepository.AlterTotal(totalvalue, id_order);
 
-            ////if (orderItens.Quantity < product.Quantity) {
-            ////    throw new Exception("Estoque Insuficiente do Produto");
-            ////}
+            int quantity = product.Quantity - orderItens.Quantity;
 
-            //if (order.OrderItens.Where(x => x.Products == product))
+            _productRepository.AlterQuantityAvailable(quantity, orderItens.Products.Id);
 
             return orderItens;
         }
