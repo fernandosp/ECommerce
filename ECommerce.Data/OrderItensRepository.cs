@@ -48,6 +48,13 @@ namespace ECommerce.Data
             return _connection.Query<OrderItens>(sql).ToList();
         }
 
+        public void AlterQuantity(int quantity, int orderItemId)
+        {
+            string sql = $"update OrderItens set Quantity = {quantity} where Id = {orderItemId} ";
+
+            _connection.Query<OrderItens>(sql);
+        }
+
 
     }
 }

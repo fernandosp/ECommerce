@@ -33,6 +33,9 @@ namespace ECommerce.API.Controllers
                     Product product = new Product(request.IdProduct);
                     OrderItens orderItens = new OrderItens(product, request.Quantity);
                     _orderItensService.Add(orderItens, request.IdOrder);
+
+                    return BadRequest("pedido invalido");
+
                     return Ok("success");
                 }
                 else
@@ -40,7 +43,7 @@ namespace ECommerce.API.Controllers
                     return BadRequest(ModelState);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new StatusCodeResult(500);
             }
