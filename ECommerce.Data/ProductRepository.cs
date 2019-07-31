@@ -23,7 +23,20 @@ namespace ECommerce.Data
         }
         public override List<Product> GetAll()
         {
-            return _connection.GetAll<Product>().ToList();
+            string sql = "SELECT * FROM PRODUCT AS P INNER JOIN ProductType AS PT ON P.ProductType = PT.ID;";
+                        
+                var products = _connection.Query<Product, ProductType, Product>(
+                        sql,
+                        (Product, ProductType) =>
+                        {
+                            Product.ProductType = ProductType;
+                            return Product;
+                        },
+                        splitOn: "ProductType")
+                    .Distinct()
+                    .ToList();
+
+            return products;
             //return _connection.Query<Product>($@"Select * from Product").ToList();
         }
 

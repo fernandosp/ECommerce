@@ -1,45 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerce.Domain;
+﻿using ECommerce.Domain;
 using ECommerce.Service;
-using ECommerce.Service.Interface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace ECommerce.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase {
+    public class ProductController : ControllerBase
+    {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService) {
+        public ProductController(IProductService productService)
+        {
             _productService = productService;
         }
 
-        [HttpGet("product/{all}")]
-        public ActionResult<IEnumerable<Product>> Get() {
+        [HttpGet]
+        public ActionResult<IEnumerable<Product>> Get()
+        {
             return _productService.GetAll();
         }
 
-        [HttpGet("product/{name}")]
-        public ActionResult<Product> Get(string name) {
+        [Route("[action]/{name}")]
+        [HttpGet]
+        public ActionResult<Product> Get(string name)
+        {
             return _productService.GetByName(name);
         }
 
-        [HttpPost("product/{post}")]
-        public ActionResult Post([FromBody]Product product) {
-            try {
-                if (ModelState.IsValid) {
+        [HttpPost]
+        public ActionResult Post([FromBody]Product product)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
                     _productService.Add(product);
                     return Ok("success");
                 }
-                else {
+                else
+                {
                     return BadRequest(ModelState);
                 }
             }
-            catch (Exception) {
+            catch (Exception ex)
+            {
                 return new StatusCodeResult(500);
             }
         }
