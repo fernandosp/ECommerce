@@ -18,7 +18,7 @@ namespace ECommerce.API.Controllers
             _productTypeService = productTypeService;
         }
 
-        [HttpGet("type/{all}")]
+        [HttpGet]
         public ActionResult<IEnumerable<ProductType>> Get() {
             return _productTypeService.GetAll();
         }
@@ -28,7 +28,7 @@ namespace ECommerce.API.Controllers
             return _productTypeService.GetByName(name);
         }
 
-        [HttpPost("type/{post}")]
+        [HttpPost]
         public ActionResult Post([FromBody]ProductType productType) {
             try {
 

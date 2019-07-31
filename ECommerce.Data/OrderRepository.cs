@@ -64,5 +64,10 @@ namespace ECommerce.Data
 
             _connection.Query<Order>(sql);
         }
+
+        public void AlterTotal(decimal total, int IdOrder)
+        {
+            string sql = $"update Orders set total = {total} where id = {IdOrder}";
+        }
     }
 }
