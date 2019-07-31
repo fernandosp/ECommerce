@@ -8,7 +8,12 @@ namespace ECommerce.Domain
     public class Client : Entity
     {
         /// <summary>
-        /// Getting  all required of Buyer's information to ensure registry properly 
+        /// Getting  all required of Customer's information to ensure register properly. 
+        /// without all these info the register will not be saved.
+        /// 
+        /// </Name - Customer has to insert their Name and Surname> 
+        /// </Email - Getting SMTP account >
+        /// </CPF -  Identity on Revenue >
         /// </summary>
         public string Name { get; set; }
         public string Email { get; set; }

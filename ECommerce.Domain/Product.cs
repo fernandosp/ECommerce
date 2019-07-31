@@ -2,6 +2,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 /// <summary>
 /// Collecting a list of product by using required parameters listed in
+/// 
+/// </ Name - Naming of product >
+/// </ ProductType - Describing what is product type >
+/// </ Value -  How it is product costs >
+/// </Quantity - How many products will be onto Order >
+/// 
 /// </summary>
 namespace ECommerce.Domain
 {

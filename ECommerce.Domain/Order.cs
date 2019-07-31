@@ -4,7 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerce.Domain
 {   /// <summary>
-    /// Getting all information to start the creating of Purchasing Order which afterwards to submit to the Client
+    /// Getting all information to start the creating of Purchasing Order which afterwards it will be submit by the Customer
+    /// </Customer' name - Who had an order >
+    /// </OrderItens - What are the products used in >
+    /// </PaymentType - How customer is going to pay the shop cart for>
+    /// </OrderStatus - Status of Order>
+    /// </Total - Total of itens into Order >
+    /// 
     /// </summary>
 
     [Table("Order")]

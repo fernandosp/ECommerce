@@ -1,6 +1,7 @@
 ﻿
 /// <summary>
-/// Customer has to choice a type of payment
+/// Customer has to choice how it is going to pay for 
+/// </CreditCard> </Debit Card> </Billet>
 /// </summary>
 namespace ECommerce.Domain
 {
