@@ -17,13 +17,11 @@ namespace ECommerce.Data
         }
         public override Product Add(Product obj)
         {
-            _connection.Insert(obj);
-            return obj;
-           //return _connection.Query<Product>("Insert Into Product (Name, Value, Quantity, ProductType) Values(@name, @value, @quantity, @productType)", obj).Single();
+           return _connection.Query<Product>("Insert Into Product (Name, Value, Quantity, IdProductType) Values(@Name, @Value, @Quantity, @IdProductType)", obj).Single();
         }
         public override List<Product> GetAll()
         {
-            string sql = "SELECT * FROM PRODUCT AS P INNER JOIN ProductType AS PT ON P.ProductType = PT.ID;";
+            string sql = "SELECT * FROM PRODUCT AS P INNER JOIN ProductType AS PT ON P.IdProductType = PT.ID;";
                         
                 var products = _connection.Query<Product, ProductType, Product>(
                         sql,
@@ -32,7 +30,7 @@ namespace ECommerce.Data
                             Product.ProductType = ProductType;
                             return Product;
                         },
-                        splitOn: "ProductType")
+                        splitOn: "IdProductType")
                     .Distinct()
                     .ToList();
 
