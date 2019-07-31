@@ -49,7 +49,17 @@ namespace ECommerce.Business
                 throw new Exception("Quantidade do Produto Indisponível");
             }
 
-            //orderItensDB = _IOrderItensRepository.
+            orderItensDB = _IOrderItensRepository.GetByOrderIdAnProductId(id_order, orderItens.Id);
+
+            if(orderItensDB == null) {
+                _IOrderItensRepository.Add(orderItens);
+
+                decimal totalvalue = orderItens.Quantity * product.Value + order.Total;
+
+
+            }
+
+
 
             ////if (orderItens.Quantity < product.Quantity) {
             ////    throw new Exception("Estoque Insuficiente do Produto");
