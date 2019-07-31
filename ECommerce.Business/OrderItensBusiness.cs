@@ -67,7 +67,7 @@ namespace ECommerce.Business
 
             //if (order.OrderItens.Where(x => x.Products == product))
 
-            return _iorderitensrepository.add(orderitens);
+            return orderItens;
         }
 
         public List<OrderItens> GetAll()

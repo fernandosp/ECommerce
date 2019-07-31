@@ -30,7 +30,8 @@ namespace ECommerce.API.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    OrderItens orderItens = new OrderItens(request.IdProduct, request.Quantity);
+                    Product product = new Product(request.IdProduct);
+                    OrderItens orderItens = new OrderItens(product, request.Quantity);
                     _orderItensService.Add(orderItens, request.IdOrder);
                     return Ok("success");
                 }

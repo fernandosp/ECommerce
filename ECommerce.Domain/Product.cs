@@ -12,6 +12,11 @@ namespace ECommerce.Domain
         public ProductType ProductType { get; set; }
         public decimal Value { get; set; }
         public int Quantity { get; set; }
+
+        public Product(int id) : base()
+        {
+            Id = id;
+        }
     }
 }
 
