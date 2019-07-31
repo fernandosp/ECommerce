@@ -23,6 +23,15 @@ namespace ECommerce.Domain
         {
 
         }
+        public Product(string name, ProductType productType, decimal value, int quantity, int id)
+        {
+            Id = id;
+            Name = name;
+            ProductType = productType;
+            Value = value;
+            Quantity = quantity;
+        }
+              
     }
 }
 
