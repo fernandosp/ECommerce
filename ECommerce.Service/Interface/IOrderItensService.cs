@@ -9,6 +9,6 @@ namespace ECommerce.Service
     public interface IOrderItensService
     {
         List<OrderItens> GetAll();
-        void Add(OrderItens orderItens);
+        void Add(OrderItens orderItens, int orderId);
     }
 }

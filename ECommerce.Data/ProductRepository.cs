@@ -46,5 +46,16 @@ namespace ECommerce.Data
             return _connection.Query<Product>(sql).Single();
         }
 
+        public override Product GetById(int id)
+        {
+            string sql = $"select * from product where id = {id}";
+
+            return _connection.Query<Product>(sql).SingleOrDefault();
+        }
+
+        public void AlterQuantityAvailable(int quantity, int produtId)
+        {
+            string sql = $"update product set = {quantity} where Id = {produtId}";
+        }
     }
 }
