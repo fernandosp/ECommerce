@@ -16,45 +16,73 @@ namespace ECommerce.Data
         }
         public override OrderItens Add(OrderItens obj)
         {
-           return _connection.Query<OrderItens>("Insert Into OrderItens (product, quantity) Values(@product, @quantity)", obj).Single();
+            string sql = $"Insert Into OrderItens (product, quantity) Values({obj.Products.Id}, {obj.Quantity})";
+
+            return base.Query(sql);
         }
 
         public override List<OrderItens> GetAll()
         {
-            string sql = "SELECT * FROM OrderItens AS OI INNER JOIN Product AS P ON OI.Id_Product = P.ID;";
-
-            var orderItens = _connection.Query<OrderItens, Product, OrderItens>(
-                sql, (orderitens, product) =>
+            
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
                 {
-                    orderitens.Products = product;
-                    return orderitens;
-                },
-                splitOn: "Id_Product").Distinct().ToList();
+                    string sql = "SELECT * FROM OrderItens AS OI INNER JOIN Product AS P ON OI.Id_Product = P.ID;";
 
-            return orderItens;
+                    var orderItens = conn.Query<OrderItens, Product, OrderItens>(
+                        sql, (orderitens, product) =>
+                        {
+                            orderitens.Products = product;
+                            return orderitens;
+                        },
+                        splitOn: "Id_Product").Distinct().ToList();
+
+                    return orderItens;
+
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
+
         }
 
         public OrderItens GetByOrderIdAnProductId(int OrderId, int ProductId)
         {
             string sql = $"select * from OrderItens where Id_Order = {OrderId} and Id_Product = {ProductId}";
 
-            return _connection.Query<OrderItens>(sql).FirstOrDefault();
+            return base.Query(sql);
         }
 
         public List<OrderItens> GetOrderItensByOrderId(int OrderId)
         {
             string sql = $"select * from OrderItens where Id_Order = {OrderId}";
 
-            return _connection.Query<OrderItens>(sql).ToList();
+            return base.QueryAll(sql);
         }
 
         public void AlterQuantity(int quantity, int orderItemId)
         {
             string sql = $"update OrderItens set Quantity = {quantity} where Id = {orderItemId} ";
 
-            _connection.Query<OrderItens>(sql);
+            base.Query(sql);
         }
 
+        public void Add(OrderItens orderItens, int orderId)
+        {
+            string sql = $"Insert into OrderItens (Id_Order, Id_Product, Quantity) values ({orderId},{orderItens.Products.Id},{orderItens.Quantity})";
+
+             base.Query(sql);
+        }
 
     }
 }

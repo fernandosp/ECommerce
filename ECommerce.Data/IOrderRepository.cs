@@ -9,5 +9,7 @@ namespace ECommerce.Data
     {
         void Add(Order obj);
         void AlterTotal(decimal total, int IdOrder);
+        Order GetOne(int id);
+
     }
 }

@@ -17,19 +17,20 @@ namespace ECommerce.Data
         public Client GetByCPF(string cpf)
         {
             var sql = $@"Select * from Client where CPF in  @CPF; ";
-            return _connection.Query<Client>(sql, new { CPF = new[] { cpf } }).FirstOrDefault();
+            return base.Query(sql, new { CPF = new[] { cpf } });
         }
 
         public override Client Add(Client obj)
         {
-            var id = _connection.Execute("Insert Into Client (Name, Email, CPF) Values(@name, @email, @cpf) ", obj);
-            return obj;
+            string sql = $"Insert Into Client (Name, Email, CPF) Values({obj.Name}, {obj.Email}, {obj.CPF}) ";
+
+            return base.Query(sql);
         }
 
         public Client GetByEmail(string email)
         {
             var sql = $@"Select * from Client where EMAIL in  @EMAIL; ";
-            return _connection.Query<Client>(sql, new { EMAIL = new[] { email } }).FirstOrDefault();
+            return base.Query(sql, new { EMAIL = new[] { email } });
         }
     }
 }

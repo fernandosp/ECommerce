@@ -29,7 +29,7 @@ namespace ECommerce.Business
 
             OrderItens orderItensDB;
 
-            order = _orderRepository.GetById(id_order);
+            order = _orderRepository.GetOne(id_order);
 
             if(order == null) {
                 throw new Exception("Pedido Inexistente");
@@ -45,15 +45,15 @@ namespace ECommerce.Business
                 throw new Exception("Produto Não Existe");
             }
 
-            if(product.Quantity >= orderItens.Quantity) {
+            if(product.Quantity < orderItens.Quantity) {
                 throw new Exception("Quantidade do Produto Indisponível");
             }
 
-            orderItensDB = _IOrderItensRepository.GetByOrderIdAnProductId(id_order, orderItens.Id);
+            orderItensDB = _IOrderItensRepository.GetByOrderIdAnProductId(id_order, id_order);
 
             if(orderItensDB == null)
             {
-                _IOrderItensRepository.Add(orderItens);
+                _IOrderItensRepository.Add(orderItens, id_order);
             }
             else
             {
