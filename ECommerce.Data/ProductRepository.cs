@@ -70,7 +70,7 @@ namespace ECommerce.Data
 
         public void AlterQuantityAvailable(int quantity, int produtId)
         {
-            string sql = $"update product set = {quantity} where Id = {produtId}";
+            string sql = $"update product set Quantity = {quantity} where Id = {produtId}";
 
             base.Query(sql);
         }

@@ -98,11 +98,11 @@ namespace ECommerce.Data
             base.Query(sql);
         }
 
-        public void AlterTotal(decimal total, int IdOrder)
+        public void AlterTotal(decimal total, int id)
         {
-            string sql = $"update Orders set total = {total} where id = {IdOrder}";
+            var sql = "update Orders set total = @total where id = @id";
 
-            base.Query(sql);
+            base.Query(sql, new { total = total, id = id });
         }
 
         public Order GetOne(int id)
