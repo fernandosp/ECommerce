@@ -8,5 +8,6 @@ namespace ECommerce.Data
         OrderItens GetByOrderIdAnProductId(int OrderId, int ProductId);
         List<OrderItens> GetOrderItensByOrderId(int OrderId);
         void AlterQuantity(int quantity, int orderItemId);
+        void Add(OrderItens orderItens, int OrderId);
     }
 }

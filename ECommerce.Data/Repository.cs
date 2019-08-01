@@ -10,13 +10,12 @@ namespace ECommerce.Data
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly SqlConnection _connection;
         protected readonly string _query;
-        private readonly IConfiguration _config;
+        protected readonly string _config;
 
         public Repository(IConfiguration config)
         {
-            _connection = ConnectionFactory.GetConnection(config.GetConnectionString("DefaultConnection"));
+            _config = config.GetConnectionString("DefaultConnection");
             _query = $@"Select * from {typeof(TEntity).Name}";
         }
 
@@ -24,23 +23,135 @@ namespace ECommerce.Data
 
         public virtual TEntity Add(TEntity obj)
         {
-            return _connection.Query<TEntity>("", obj).Single();
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
+                {
+                    return conn.Query<TEntity>("", obj).Single();
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
         }
 
         public virtual List<TEntity> GetAll()
         {
-            return _connection.GetAll<TEntity>().ToList();
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
+                {
+                    return conn.GetAll<TEntity>().ToList();
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
         }
 
         public virtual TEntity GetById(int id)
         {
-           return _connection.Get<TEntity>(id);
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
+                {
+                    return conn.Get<TEntity>(id);
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
         }
 
-        public void Update(TEntity obj)
+        public List<TEntity> QueryAll(string query)
         {
-            throw new NotImplementedException();
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
+                {
+                    return conn.Query<TEntity>(query).ToList();
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
         }
-       
+
+        public TEntity Query(string query)
+        {
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
+                {
+                    return conn.Query<TEntity>(query).SingleOrDefault();
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
+        }
+
+        public TEntity Query(string query, object obj)
+        {
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
+                {
+                    return conn.Query<TEntity>(query, obj).SingleOrDefault();
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
+        }
+
     }
 }

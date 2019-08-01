@@ -17,43 +17,62 @@ namespace ECommerce.Data
         }
         public override Product Add(Product obj)
         {
-            var sql = "Insert Into Product (Name, Value, Quantity, IdProductType) Values(@Name, @Value, @Quantity, @IdProductType)";
-           return _connection.Query<Product>(sql, obj).Single();
+            return base.Add(obj);
         }
+
         public override List<Product> GetAll()
         {
-            string sql = "SELECT * FROM PRODUCT AS P INNER JOIN ProductType AS PT ON P.IdProductType = PT.ID;";
-                        
-                var products = _connection.Query<Product, ProductType, Product>(
-                        sql,
-                        (Product, ProductType) =>
-                        {
-                            Product.ProductType = ProductType;
-                            return Product;
-                        },
-                        splitOn: "IdProductType")
-                    .Distinct()
-                    .ToList();
+            using (var conn = ConnectionFactory.GetConnection(_config))
+            {
+                try
+                {
+                    var sql = "SELECT * FROM PRODUCT AS P INNER JOIN ProductType AS PT ON P.ProductType = PT.ID;";
 
-            return products;
+                    var products = conn.Query<Product, ProductType, Product>(
+                      sql,
+                      (Product, ProductType) =>
+                      {
+                          Product.ProductType = ProductType;
+                          return Product;
+                      },
+                      splitOn: "ProductType")
+                  .Distinct()
+                  .ToList();
+
+                    return products;
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
+            }
         }
 
         public Product GetByName(string nome)
         {
             var sql = $@"Select * from Product where nome like '%{nome}%' ";
-            return _connection.Query<Product>(sql).Single();
+            return base.Query(sql);
         }
 
         public override Product GetById(int id)
         {
             string sql = $"select * from product where id = {id}";
 
-            return _connection.Query<Product>(sql).SingleOrDefault();
+            return base.Query(sql);
         }
 
         public void AlterQuantityAvailable(int quantity, int produtId)
         {
-            string sql = $"update product set = {quantity} where Id = {produtId}";
+            string sql = $"update product set Quantity = {quantity} where Id = {produtId}";
+
+            base.Query(sql);
         }
     }
 }

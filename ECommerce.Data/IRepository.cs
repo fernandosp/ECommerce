@@ -8,6 +8,5 @@ namespace ECommerce.Data
         TEntity Add(TEntity obj);
         TEntity GetById(int id);
         List<TEntity> GetAll();
-        void Update(TEntity obj);        
     }
 }

@@ -7,7 +7,6 @@ namespace ECommerce.API.ViewModels
 {
     public class PostOrderItensRequest
     {
-        public int IdOrder { get; set; }
         public int IdProduct { get; set; }
         public int Quantity { get; set; }
     }

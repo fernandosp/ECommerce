@@ -8,5 +8,7 @@ namespace ECommerce.Data
     public interface IOrderRepository : IRepository<Order>
     {
         void AlterTotal(decimal total, int IdOrder);
+        Order GetOne(int id);
+
     }
 }

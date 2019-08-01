@@ -16,8 +16,9 @@ namespace ECommerce.Data
         }
         public override ProductType Add(ProductType obj)
         {
-            var sql = "Insert Into ProductType (Name) Values(@name)";
-            return _connection.Query<ProductType>(sql, obj).Single();
+            string sql = $"Insert Into ProductType (Name) Values({obj.Name})";
+
+            return base.Query(sql);
         }
     }
 }

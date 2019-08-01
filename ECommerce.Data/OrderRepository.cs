@@ -17,9 +17,11 @@ namespace ECommerce.Data
         
         public override List<Order> GetAll()
         {
-            using (_connection)
+            using (var conn = ConnectionFactory.GetConnection(_config))
             {
-                return _connection.Query<Order, Client, Order>(
+                try
+                {
+                    return conn.Query<Order, Client, Order>(
                         $@"Select * from
                         Orders O  inner join Client C 
                         on O.Id_Client = C.Id ",
@@ -30,7 +32,21 @@ namespace ECommerce.Data
                         },
                         splitOn: "Id,Id").ToList();
 
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
             }
+            
+            
         }
 
         public override Order GetById(int id)
@@ -39,9 +55,12 @@ namespace ECommerce.Data
             //                                Orders O  inner join Client C 
             //                                on O.Id_Client = C.Id where O.Id = {id}").SingleOrDefault();
 
-            using (_connection)
+
+            using (var conn = ConnectionFactory.GetConnection(_config))
             {
-                return _connection.Query<Order, Client, Order>(
+                try
+                {
+                    return conn.Query<Order, Client, Order>(
                         $@"Select * from
                         Orders O  inner join Client C 
                         on O.Id_Client = C.Id where O.Id = {id}",
@@ -51,8 +70,22 @@ namespace ECommerce.Data
                             return Order;
                         },
                         splitOn: "Id,Id").SingleOrDefault();
-                
+
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    if (conn?.State != System.Data.ConnectionState.Closed)
+                    {
+                        conn?.Close();
+                    }
+                }
             }
+
+            
 
 
         }
@@ -62,12 +95,21 @@ namespace ECommerce.Data
             string sql = $"Insert Into Orders (Id_Client, PaymentType, OrderStatus, Total, DateOrder)" +
                 $" Values(" + obj.Client_Id + ", '" + obj.PaymentType + "', 'ABERTA', 0, getdate())";
 
-            _connection.Query<Order>(sql);
+            base.Query(sql);
         }
 
-        public void AlterTotal(decimal total, int IdOrder)
+        public void AlterTotal(decimal total, int id)
         {
-            string sql = $"update Orders set total = {total} where id = {IdOrder}";
+            var sql = "update Orders set total = @total where id = @id";
+
+            base.Query(sql, new { total = total, id = id });
+        }
+
+        public Order GetOne(int id)
+        {
+            string sql = $"SELECT * from Orders where Id = {id}";
+
+            return base.Query(sql);
         }
     }
 }

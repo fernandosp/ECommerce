@@ -16,6 +16,12 @@ namespace ECommerce.Domain
             Products = products;
             Quantity = quantity;
         }
+
+        public OrderItens() : base()
+        {
+
+        }
+
     }
 
 }

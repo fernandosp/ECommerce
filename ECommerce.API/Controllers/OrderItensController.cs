@@ -23,8 +23,8 @@ namespace ECommerce.API.Controllers
         }
 
 
-        [HttpPost("orderitens/{post}")]
-        public ActionResult Post([FromBody] PostOrderItensRequest request)
+        [HttpPost("order/{orderid}/")]
+        public ActionResult Post([FromBody] PostOrderItensRequest request, [FromRoute] int orderid)
         {
             try
             {
@@ -32,9 +32,9 @@ namespace ECommerce.API.Controllers
                 {
                     Product product = new Product(request.IdProduct);
                     OrderItens orderItens = new OrderItens(product, request.Quantity);
-                    _orderItensService.Add(orderItens, request.IdOrder);
+                    _orderItensService.Add(orderItens, orderid);
 
-                    return BadRequest("pedido invalido");
+                    //return BadRequest("pedido invalido");
 
                     return Ok("success");
                 }
