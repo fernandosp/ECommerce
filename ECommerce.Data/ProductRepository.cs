@@ -17,7 +17,8 @@ namespace ECommerce.Data
         }
         public override Product Add(Product obj)
         {
-           return _connection.Query<Product>("Insert Into Product (Name, Value, Quantity, IdProductType) Values(@Name, @Value, @Quantity, @IdProductType)", obj).Single();
+            var sql = "Insert Into Product (Name, Value, Quantity, IdProductType) Values(@Name, @Value, @Quantity, @IdProductType)";
+           return _connection.Query<Product>(sql, obj).Single();
         }
         public override List<Product> GetAll()
         {
@@ -35,7 +36,6 @@ namespace ECommerce.Data
                     .ToList();
 
             return products;
-            //return _connection.Query<Product>($@"Select * from Product").ToList();
         }
 
         public Product GetByName(string nome)
